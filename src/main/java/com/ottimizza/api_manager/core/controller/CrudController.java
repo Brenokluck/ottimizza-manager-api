@@ -1,8 +1,6 @@
 package com.ottimizza.api_manager.core.controller;
 
 import com.ottimizza.api_manager.core.service.CrudService;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,17 +15,6 @@ public abstract class CrudController<T, ID> {
     @GetMapping("/all")
     public Iterable<T> getAll() {
         return service.getAll();
-    }
-
-    //retorna elementos paginados
-    @GetMapping("/paginated")
-    public Iterable<T> findAll(@RequestParam int page, @RequestParam(defaultValue = "12", required = false) int size) {
-        try {
-            Pageable pageable = PageRequest.of(page, size);
-            return service.findAll(pageable);
-        } catch (IllegalArgumentException e) {
-            throw new RuntimeException(e.getMessage());
-        }
     }
 
     //retorna elemento por id

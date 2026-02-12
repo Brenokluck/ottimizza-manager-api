@@ -8,7 +8,6 @@ public interface CrudService<T, ID> {
     Iterable<T> getAll();
     Optional<T> getById(ID id);
     boolean existsById(ID id);
-    Iterable<T> findAll(Pageable pageable);
     T create(T entity);
     T update(ID id, T entity);
     void delete(ID id);

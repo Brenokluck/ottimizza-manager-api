@@ -1,9 +1,7 @@
 package com.ottimizza.api_manager.manager.task.domain.task;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.ottimizza.api_manager.manager.column.domain.column.Column;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,13 +19,16 @@ import java.util.List;
 public class Task {
     @Id
     @GeneratedValue
-    private String Id;
+    private String id;
 
     private String name;
-    private Number position;
+    private Integer position;
     private Instant createdAt;
     private Instant dueDate;
     private Boolean completed;
     private List<String> tags;
-    private String columnId;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "columnId", nullable = false)
+    private Column columnId;
 }

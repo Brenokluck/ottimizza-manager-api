@@ -1,6 +1,5 @@
 package com.ottimizza.api_manager.core.service;
 
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -9,7 +8,7 @@ import java.util.Optional;
 
 @Service
 @Transactional
-public class CrudServiceImpl<T, ID> implements CrudService<T, ID> {
+public abstract class CrudServiceImpl<T, ID> implements CrudService<T, ID> {
     private final CrudRepository<T, ID> repository;
 
     public CrudServiceImpl(CrudRepository<T, ID> repository) {
@@ -19,17 +18,6 @@ public class CrudServiceImpl<T, ID> implements CrudService<T, ID> {
     @Override
     public Iterable<T> getAll() {
         return repository.findAll();
-    }
-
-    //rever pageable
-//    @Override
-//    public Iterable<T> findAll(Pageable pageable) {
-//        return paginatedRepository.findAll(pageable);
-//    }
-
-    @Override
-    public Iterable<T> findAll(Pageable pageable) {
-        return null;
     }
 
     @Override

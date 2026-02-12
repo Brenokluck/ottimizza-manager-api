@@ -1,15 +1,13 @@
 package com.ottimizza.api_manager.manager.column.domain.column;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.ottimizza.api_manager.manager.board.domain.board.Board;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Table(name = "column")
+@Table(name = "column_manager")
 @Entity
 @Setter
 @Getter
@@ -21,6 +19,9 @@ public class Column {
     private String id;
 
     private String name;
-    private Number position;
-    private String boardId;
+    private Integer position;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "boardId", nullable = false)
+    private Board boardId;
 }
