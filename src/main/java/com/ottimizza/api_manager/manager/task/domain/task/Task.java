@@ -26,7 +26,6 @@ public class Task {
     private Instant createdAt;
     private Instant dueDate;
     private Boolean completed;
-    private List<String> tags;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "columnId", nullable = false)
