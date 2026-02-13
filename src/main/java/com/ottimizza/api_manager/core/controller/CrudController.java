@@ -17,7 +17,6 @@ public abstract class CrudController<T, ID> {
         return service.getAll();
     }
 
-    //retorna elemento por id
     @GetMapping("/{id}")
     public ResponseEntity<T> getById(@PathVariable ID id) {
         Optional<T> optionalEntity = service.getById(id);
@@ -25,7 +24,6 @@ public abstract class CrudController<T, ID> {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    //cria um novo elemento
     @PostMapping
     public T create(@RequestBody T entity) {
         try {
@@ -36,27 +34,22 @@ public abstract class CrudController<T, ID> {
 
     }
 
-
-    //atualiza um elemento existente
     @PutMapping("/{id}")
     public ResponseEntity<T> update(@PathVariable ID id, @RequestBody T entity) {
         service.update(id, entity);
         return new ResponseEntity<>(entity, HttpStatus.OK);
     }
 
-    //atualiza parcialmente um elemento existente
     @PatchMapping("/{id}")
     public ResponseEntity<T> partialUpdate(@PathVariable ID id) {
         return service.getById(id)
                 .map(entity -> {
-                    // aplica update aqui
                     service.update(id, entity);
                     return new ResponseEntity<>(entity, HttpStatus.OK);
                 })
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    //deleta um elemento por id
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable ID id) {
         if (!service.existsById(id)) {
